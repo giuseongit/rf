@@ -1,0 +1,19 @@
+name: rf
+version: 0.1.0
+
+authors:
+  - your-name-here <your-email-here>
+
+targets:
+  rf:
+    main: src/rf.cr
+
+dependencies:
+  fuzzy:
+    github: tijn/fuzzy
+  keimeno:
+    github: robacarp/keimeno
+
+crystal: 0.35.1
+
+license: MIT

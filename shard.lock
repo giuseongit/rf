@@ -1,0 +1,10 @@
+version: 2.0
+shards:
+  fuzzy:
+    git: https://github.com/tijn/fuzzy.git
+    version: 0.1.0+git.commit.fead50728a9b2d9d45270b7b8cda74d2dbf2fcca
+
+  keimeno:
+    git: https://github.com/robacarp/keimeno.git
+    version: 0.3.0
+
