@@ -3,27 +3,58 @@ require "./finder"
 require "./ui"
 require "keimeno"
 
-# TODO: Write documentation for `Rf`
 module Rf
   VERSION = "0.1.0"
 
   class App
+    CACHE_FILE = ".cache"
+    CFG_FILE   = "rf.yml"
+
     @requested_str : String | Nil
     @logger : Log
+    @cache_path : String
+    @cfg_dir : String
+    @cfg_file : String
 
-    def initialize(@cfg_dir : String, sources_dir : String)
-      Dir.create_if_not_exists(@cfg_dir)
-      @sources_dir = Dir.new(sources_dir)
+    getter cfg : Config
+
+    def initialize
+      home = ENV.fetch("HOME", "")
+      exit -1 if home == ""
+
+      @cfg_dir = home + "/.config/rf/"
+      @cfg_file = @cfg_dir + CFG_FILE
+
       Loggers.suppress_logs
+      Loggers.level_info
       @logger = Loggers.get_logger
+      @cache_path = @cfg_dir + CACHE_FILE
+
+      @use_cache = true
+      @suppress_output = false
+
+      @wizard = false
+      Dir.create_if_not_exists(@cfg_dir)
+      if File.exists? @cfg_file
+        @cfg = Rf::Config.from_yaml File.read(@cfg_file)
+      else
+        @cfg = Rf::Config.wizard
+        File.write(@cfg_file, @cfg.to_yaml)
+        puts "config done. ready to use"
+        exit
+      end
+
+      @sources_dir = Dir.new(@cfg.repositories_dir)
+      @finder = Finder.new @cfg.enabled_vsc
+
+      parse_args
+      build_index
+      print_result if !@wizard
     end
 
     def parse_args
-      Loggers.level_info
-      @use_cache = true
-      @suppress_output = false
       OptionParser.parse do |parser|
-        parser.banner = "Usage: find-repos [search]"
+        parser.banner = "Usage: rf [search]"
         parser.on("-i", "--ignore-cache", "ignore and rebuild cache") { @use_cache = false }
         parser.on("-r", "--rebuild-cache", "rebuild cache without output") { @use_cache = false; @suppress_output = true }
         parser.on("-l", "--logging", "enable logging") { Loggers.log_to_stdout }
@@ -37,15 +68,15 @@ module Rf
     end
 
     def build_index
-      @index = Index.load(@cfg_dir)
+      @index = Index.load(@cache_path)
 
       if @index.nil? || !@use_cache
         @logger.debug { "walking dirs" }
-        res = Finder.walk_dirs(@sources_dir)
+        res = @finder.walk_dirs(@sources_dir)
         @index = res[0].as(Array)
         walked = res[1].as(Int)
         @logger.info { "scanned #{walked} dirs" }
-        @index.not_nil!.save(@cfg_dir)
+        @index.not_nil!.save(@cache_path)
       else
         @logger.debug { "using cache" }
       end
@@ -69,23 +100,13 @@ module Rf
           end
         end
         if selected.size > 1
-          print Menu.new(selected).run
+          print Menu.new(selected, @cfg.entries_shown).run
         else
           print selected.join("\n")
         end
       end
     end
-
-    def run
-      parse_args
-      build_index
-      print_result
-    end
   end
 end
 
-home = ENV.fetch("HOME", "/home/giuse")
-config_dir = home + "/.config/find-repos"
-repos_dir = home + "/repos"
-
-Rf::App.new(config_dir, repos_dir).run
+Rf::App.new

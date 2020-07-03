@@ -1,12 +1,10 @@
 require "./class_extensions"
+require "./config"
 
 module Rf
   class Index < Array(Dir)
-    CACHE_FILE = "/.cache"
-
-    def self.load(cfg_dir : String) : Index | Nil
+    def self.load(fpath : String) : Index | Nil
       sublogger = Loggers.for("index")
-      fpath = cfg_dir + CACHE_FILE
       if File.exists?(fpath)
         lines = File.read_lines(fpath)
         i = self.new
@@ -29,8 +27,7 @@ module Rf
       nil
     end
 
-    def save(cfg_dir : String)
-      fpath = cfg_dir + CACHE_FILE
+    def save(fpath : String)
       txt = ""
       each do |repo|
         txt += repo.path + "\n"

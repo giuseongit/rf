@@ -22,6 +22,7 @@ struct ColorizedFormatter < Log::StaticFormatter
     string " - "
     source(after: ": ")
     message
+    # Message might be colorized, so we reset the right color
     string color
     data(before: " -- ")
     context(before: " -- ")

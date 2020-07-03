@@ -6,17 +6,16 @@ module Rf
   alias SelectionRecord = Array(String | Array(Int32))
 
   class Menu < Keimeno::Base
-    CRLF    = "\n\r"
-    TO_SHOW = 5
+    CRLF = "\n\r"
 
-    def initialize(@dirs : Array(Dir))
+    def initialize(@dirs : Array(Dir), max_entries_shown : Int32)
       @selected_line = 0
       @buffer = [] of Char
       @shown = [] of SelectionRecord
       @dirs.each do |dir|
         @shown << [dir.path, [] of Int32]
       end
-      @window_height = TO_SHOW
+      @window_height = max_entries_shown
       @show_cursor = 0
     end
 
@@ -83,11 +82,9 @@ module Rf
         puts highlight_colorized(dir[0].as(String), dir[1].as(Array(Int32)), @selected_line.not_nil! == ix + @show_cursor)
       end
       puts "  [#{@shown.size}/#{@dirs.size}]".colorize(:dark_gray)
-      puts "debugVars: #{@selected_line}" if false
     end
 
     def run
-      # print ANSI::CURSOR_POS_SAVE
       print SAVE_CURSOR
       loop do
         clear_line
