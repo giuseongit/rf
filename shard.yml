@@ -13,6 +13,8 @@ dependencies:
     github: tijn/fuzzy
   keimeno:
     github: robacarp/keimeno
+  berm:
+    github: giuseongit/berm
 
 crystal: 0.35.1
 
