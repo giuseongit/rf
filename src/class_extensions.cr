@@ -1,5 +1,15 @@
 require "./logger"
 
+module DirRepositoryDiscovery
+  def is_git_repo? : Bool
+    Dir.exists?(path + "/.git")
+  end
+
+  def is_svn_repo? : Bool
+    Dir.exists?(path + "/.svn")
+  end
+end
+
 class Dir
   def self.create_if_not_exists(path)
     sublogger = Rf::Loggers.for("dir")
@@ -13,14 +23,6 @@ class Dir
     io << path
   end
 
-  def is_git_repo? : Bool
-    Dir.exists?(path + "/.git")
-  end
-
-  def is_svn_repo? : Bool
-    Dir.exists?(path + "/.svn")
-  end
-
   def each_subdir
     each_child do |entry|
       dirpath = path + "/" + entry
@@ -29,4 +31,6 @@ class Dir
       end
     end
   end
+
+  include DirRepositoryDiscovery
 end
