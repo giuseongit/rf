@@ -2,7 +2,7 @@ name: rf
 version: 0.1.0
 
 authors:
-  - your-name-here <your-email-here>
+  - Giuseppe Pagano <giuseppe.pagano.p@gmail.com>
 
 targets:
   rf:
