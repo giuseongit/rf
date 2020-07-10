@@ -1,7 +1,7 @@
 # rf
 
 rf (**r**epository **f**inder) is a simple tool that helps you change directory. This is particular useful for developers
-who work on various souftware each day. It can be stressful to deal with all those cds commands, so this little tool scans a directory and build an internal index of all the directories that are a git or svn repository, and then it helps changind directory without having to deal with paths.
+who work on various software each day. It can be stressful to deal with all those cds commands, so this little tool scans a directory and build an internal index of all the directories that are a git or svn repository, and then it helps changind directory without having to deal with paths.
 
 
 ### Example
@@ -46,9 +46,13 @@ This software is inspired by [fzf](https://github.com/junegunn/fzf).
 
 
 ## Contributing (any help appreciated!)
+1. Check the [issues page](https://github.com/giuseongit/rf/issues) for something to do
 1. Fork it (<https://github.com/giuseongit/rf/fork>)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+1. Create your feature branch (`git checkout -b my-new-feature`)
+1. Commit your changes (`git commit -am 'Add some feature'`)
+1. Push to the branch (`git push origin my-new-feature`)
+1. Create a new Pull Request
+
+Note on PRs: the issues are features or tasks that I consider useful for the prject, but I'm willing to review (and maybe accept) every PR that is opened.
+Please link the addressing issue if you're working on a ticket
 
