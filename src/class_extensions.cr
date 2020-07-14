@@ -27,7 +27,8 @@ class Dir
     each_child do |entry|
       dirpath = path + "/" + entry
       if Dir.exists?(dirpath)
-        yield Dir.new(dirpath)
+        dir = Dir.new(dirpath)
+        yield dir unless File.symlink? dirpath # skip symlinks
       end
     end
   end

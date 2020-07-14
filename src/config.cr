@@ -42,9 +42,8 @@ module Rf
 
     property repositories_dir : String
     property entries_shown : Int32
-
-    @[YAML::Field(key: "enabled_vsc")]
     property enabled_vsc : SupportedVSC
+    property subrepository_depth : Int32
 
     private def self.ask_for_input(msg : String, type : Class)
       puts msg
@@ -86,6 +85,7 @@ module Rf
       cfg.repositories_dir = repositories_dir
       cfg.enabled_vsc = enabled_vsc
       cfg.entries_shown = 5
+      cfg.subrepository_depth = 1
 
       return cfg
     end

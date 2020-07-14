@@ -45,7 +45,7 @@ module Rf
       end
 
       @sources_dir = Dir.new(@cfg.repositories_dir)
-      @finder = Finder.new @cfg.enabled_vsc
+      @finder = Finder.new @cfg.enabled_vsc, @cfg.subrepository_depth
 
       parse_args
       build_index
