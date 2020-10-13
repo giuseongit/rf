@@ -4,37 +4,6 @@ require "berm"
 module Rf
   class SupportedVSC < Berm::Flag
     FlagValues = %i(Git Svn)
-
-    def to_yaml(yaml : YAML::Nodes::Builder)
-      enabled = [] of PermValues
-      PermValues.each do |val|
-        enabled << val if value & val.value == val.value
-      end
-      enabled << PermValues::None if enabled.size == 0
-
-      yaml.scalar enabled.join("|").downcase
-    end
-
-    def from_string(string : String) : UInt32
-      flags = string.split("|")
-      res = 0_u32
-
-      flags.each do |flag|
-        PermValues.each do |val|
-          res += val.to_u32 if val.to_s.downcase == flag
-        end
-      end
-
-      return res
-    end
-
-    def initialize(ctx : YAML::ParseContext, node : YAML::Nodes::Node)
-      value = 0_u32
-      if node.is_a?(YAML::Nodes::Scalar)
-        value = from_string(node.value)
-      end
-      @value = value
-    end
   end
 
   struct Config
@@ -61,7 +30,7 @@ module Rf
         return res == "" || res.downcase[0] == 'y'
       end
 
-      return res
+      res
     end
 
     def self.wizard
@@ -87,7 +56,7 @@ module Rf
       cfg.entries_shown = 5
       cfg.subrepository_depth = 1
 
-      return cfg
+      cfg
     end
   end
 end

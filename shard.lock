@@ -1,8 +1,12 @@
 version: 2.0
 shards:
+  ameba:
+    git: https://github.com/crystal-ameba/ameba.git
+    version: 0.12.1
+
   berm:
     git: https://github.com/giuseongit/berm.git
-    version: 0.1.0
+    version: 0.2.0
 
   fuzzy:
     git: https://github.com/tijn/fuzzy.git
