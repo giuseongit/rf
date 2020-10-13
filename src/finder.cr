@@ -6,7 +6,11 @@ module Rf
     def initialize(@enabled_vscs : SupportedVSC, @max_subrepo_depth : Int32)
     end
 
-    def walk_dirs(root : Dir, depth : Int32 = 1) : Array(Index | Int32)
+    def walk_dirs(root : Dir) : Array(Index | Int32)
+      internal_walk_dirs(root)
+    end
+
+    private def internal_walk_dirs(root : Dir, depth : Int32 = 1) : Array(Index | Int32)
       sublogger = Loggers.for("walk")
       walked_dirs = 0
       sublogger.debug { "visiting #{root}" }
@@ -24,7 +28,7 @@ module Rf
           end
           repo_depth += 1
         end
-        res = walk_dirs(subdir, repo_depth)
+        res = internal_walk_dirs(subdir, repo_depth)
         repos.concat res[0].as(Array)
         walked_dirs += res[1].as(Int)
       end

@@ -1,5 +1,4 @@
 require "./spec_helper"
-require "../src/class_extensions"
 
 describe "Rf.extensions"do
 
@@ -28,14 +27,13 @@ describe "Rf.extensions"do
 
   it "dir can detect git and svn repositories work" do
     with_dir("./test") do |dir|
+      tDir = Dir.new("./test")
       with_dir("./test/.git") do |dir|
-        tDir = Dir.new("./test")
         tDir.is_svn_repo?.should be_false
         tDir.is_git_repo?.should be_true
       end
       
       with_dir("./test/.svn") do |dir|
-        tDir = Dir.new("./test")
         tDir.is_svn_repo?.should be_true
         tDir.is_git_repo?.should be_false
       end
