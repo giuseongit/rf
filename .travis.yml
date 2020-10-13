@@ -1,0 +1,6 @@
+language: crystal
+
+script:
+  - make test
+  - make lint
+  - make audit
