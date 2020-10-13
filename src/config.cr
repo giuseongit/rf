@@ -30,7 +30,7 @@ module Rf
         return res == "" || res.downcase[0] == 'y'
       end
 
-      return res
+      res
     end
 
     def self.wizard
@@ -56,7 +56,7 @@ module Rf
       cfg.entries_shown = 5
       cfg.subrepository_depth = 1
 
-      return cfg
+      cfg
     end
   end
 end

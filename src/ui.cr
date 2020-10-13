@@ -41,7 +41,7 @@ module Rf
       if selected
         return str.back(:white)
       end
-      return str
+      str
     end
 
     def highlight_colorized(str : String, highlights : Array(Int32), selected : Bool)
@@ -70,7 +70,7 @@ module Rf
         end
         build_str += "#{chr}"
       end
-      return build_str
+      build_str
     end
 
     def display

@@ -33,7 +33,7 @@ module Rf
         walked_dirs += res[1].as(Int)
       end
       root.close
-      return [repos, walked_dirs]
+      [repos, walked_dirs]
     end
   end
 end

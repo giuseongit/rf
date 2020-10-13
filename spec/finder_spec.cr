@@ -1,14 +1,14 @@
 require "./spec_helper"
 
-describe "Rf.finder"do
+describe "Rf.finder" do
   it "can wak dirs" do
     Dir.create_if_not_exists("./test/prj1/.git")
     Dir.create_if_not_exists("./test/prj2/.git")
     Dir.create_if_not_exists("./test/sub/prj4/.git")
     Dir.create_if_not_exists("./test/sub/prj5/.git")
-    
+
     finder = init_finder
-    
+
     dir = Dir.new("./test")
 
     ix = finder.walk_dirs(dir)
