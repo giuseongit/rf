@@ -1,4 +1,4 @@
-# rf
+# rf [![Build Status](https://travis-ci.com/giuseongit/rf.svg?branch=master)](https://travis-ci.com/giuseongit/rf)
 
 rf (**r**epository **f**inder) is a simple tool that helps you change directory. This is particular useful for developers
 who work on various software each day. It can be stressful to deal with all those cds commands, so this little tool scans a directory and build an internal index of all the directories that are a git or svn repository, and then it helps changind directory without having to deal with paths.
