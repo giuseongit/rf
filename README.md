@@ -20,7 +20,7 @@ projects
 ```
 lunching rf will help you select a repository inside `project`
 
-[![asciicast](https://asciinema.org/a/neIONnAkJ0TKDhfpqyCk0yj3d.svg)](https://asciinema.org/a/neIONnAkJ0TKDhfpqyCk0yj3d)
+[![asciicast](https://asciinema.org/a/365056.svg)](https://asciinema.org/a/365056)
 
 ### Shell integration
 The actual binary prints to stdout the aboslute path of the selected directory so the output can be used with cd.
